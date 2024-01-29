@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static List<string> tasks = new List<string>();
+
+    static void Main()
+    {
+        Console.WriteLine("Console To-Do List Application");
+
+        while (true)
+        {
+            Console.WriteLine("\nChoose an option:");
+            Console.WriteLine("1. Add Task");
+            Console.WriteLine("2. Delete Task");
+            Console.WriteLine("3. View Tasks");
+            Console.WriteLine("4. Exit");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    AddTask();
+                    break;
+                case "2":
+                    DeleteTask();
+                    break;
+                case "3":
+                    ViewTasks();
+                    break;
+                case "4":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    static void AddTask()
+    {
+        Console.Write("Enter the task: ");
+        string task = Console.ReadLine();
+        tasks.Add(task);
+        Console.WriteLine("Task added successfully!");
+    }
+
+    static void DeleteTask()
+    {
+        if (tasks.Count == 0)
+        {
+            Console.WriteLine("No tasks to delete.");
+            return;
+        }
+
+        Console.WriteLine("Tasks:");
+        DisplayTasks();
+
+        Console.Write("Enter the task number to delete: ");
+        if (int.TryParse(Console.ReadLine(), out int taskNumber) && taskNumber > 0 && taskNumber <= tasks.Count)
+        {
+            tasks.RemoveAt(taskNumber - 1);
+            Console.WriteLine("Task deleted successfully!");
+        }
+        else
+        {
+            Console.WriteLine("Invalid task number. Please try again.");
+        }
+    }
+
+    static void ViewTasks()
+    {
+        if (tasks.Count == 0)
+        {
+            Console.WriteLine("No tasks available.");
+        }
+        else
+        {
+            Console.WriteLine("Tasks:");
+            DisplayTasks();
+        }
+    }
+
+    static void DisplayTasks()
+    {
+        for (int i = 0; i < tasks.Count; i++)
+        {
+            Console.WriteLine($"{i + 1}. {tasks[i]}");
+        }
+    }
+}
